@@ -56,10 +56,11 @@ module.exports = (makeStream, options = {}) ->
     stream.underlying.on 'data', (chunk) ->
       stream.emit 'data', chunk
 
-    stream.underlying.on 'open', ->
+    stream.underlying.on connectedEvent, ->
       log "connection established"
       stream.backoff.reset()
       stream.inverse.resume()
+      stream.emit 'open'
 
     stream.underlying.on 'end', ->
       log "connection terminated"
