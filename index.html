@@ -1,0 +1,52 @@
+<!doctype html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<title>stream-recreate</title>
+<link rel="stylesheet" href="_static/default.css" type="text/css" />
+<script src="_static/jquery.js"></script>
+<script src="_static/jquery.lettering.js"></script>
+<script>
+  $(function() {
+    var $headers = $('h1');
+    $headers.lettering('words').children('span').lettering();
+    $headers.children('span').children('span:contains("¶")').remove();
+  });
+</script>
+<div class="main">
+  
+  <div class="section" id="stream-recreate">
+<h1>stream-recreate<a class="headerlink" href="#stream-recreate" title="Permalink to this headline">¶</a></h1>
+<p>Recreate stream on &#8216;error&#8217; and/or &#8216;end&#8217;</p>
+<p>To get started, install <tt class="docutils literal"><span class="pre">stream-recreate</span></tt> package via <tt class="docutils literal"><span class="pre">npm</span></tt>:</p>
+<div class="highlight-python"><pre>% npm install stream-recreate</pre>
+</div>
+<p>After that you will be able to use <tt class="docutils literal"><span class="pre">stream-recreate</span></tt> library in your code.
+The basic usage example is as follows:</p>
+<div class="highlight-python"><pre>var recreate = require('stream-recreate'),
+    websocket = require('websocket-stream');
+
+var socket = recreate(function() {
+  return websocket('ws://localhost:3000');
+});
+
+socket.write('data');</pre>
+</div>
+<p>Returned <tt class="docutils literal"><span class="pre">socket</span></tt> stream will recreate underlying <tt class="docutils literal"><span class="pre">websocket</span></tt> stream on its
+<tt class="docutils literal"><span class="pre">end</span></tt> and <tt class="docutils literal"><span class="pre">error</span></tt> event. Recreation algorithm uses <a class="reference external" href="https://github.com/MathieuTurcotte/node-backoff">backoff</a> module to
+control the interval between.</p>
+<p>To shutdown cleanly call <tt class="docutils literal"><span class="pre">socket.end()</span></tt>.</p>
+<p>Note that we can call <tt class="docutils literal"><span class="pre">socket.write()</span></tt> right after the creation even if
+underlying <tt class="docutils literal"><span class="pre">websocket()</span></tt> stream isn&#8217;t open yet — <tt class="docutils literal"><span class="pre">stream-recreate</span></tt> returns
+another stream which buffers writes and drains buffers on <tt class="docutils literal"><span class="pre">open</span></tt> of an
+underlying stream.</p>
+</div>
+
+
+  <footer>
+    <p>stream-recreate 0.1.0</p>
+    <p>Generated using Sphinx 1.2b1</p>
+  </footer>
+</div>
+</div>
+<a class="github-ribbon" href="https://github.com/andreypopp/stream-recreate">
+  <img src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub">
+</a>
