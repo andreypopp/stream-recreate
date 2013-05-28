@@ -1,0 +1,33 @@
+{
+  "name": "stream-recreate",
+  "version": "0.0.0",
+  "description": "Recreate stream on 'error' and/or 'end'",
+  "main": "lib/index.js",
+  "dependencies": {
+    "through": "",
+    "backoff": ""
+  },
+  "devDependencies": {
+    "coffee-script": "~1.6.x",
+    "mocha": "",
+    "semver": "",
+    "sphinx-npm": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/andreypopp/stream-recreate.git"
+  },
+  "homepage": "https://github.com/andreypopp/stream-recreate",
+  "keywords": [
+    "stream",
+    "streams",
+    "recreate",
+    "reconnect"
+  ],
+  "author": {
+    "name": "Andrey Popp",
+    "email": "8mayday@gmail.com",
+    "url": "http://andreypopp.com"
+  },
+  "license": "MIT"
+}
