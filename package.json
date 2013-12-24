@@ -9,7 +9,8 @@
   },
   "devDependencies": {
     "mocha": "1.x.x",
-    "semver": "~2.2.1"
+    "semver": "~2.2.1",
+    "jshint": "~2.3.0"
   },
   "repository": {
     "type": "git",

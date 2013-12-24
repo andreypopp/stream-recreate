@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Recreate streams on 'end' and/or 'error' events.
  */
@@ -16,13 +17,13 @@ function isObject(o) {
  * @param {Object}
  */
 function recreate(makeStream, options) {
-  if (options == null) {
-    options = {};
-  }
   if (options === undefined && isObject(makeStream)) {
     options = makeStream;
     makeStream = options.makeStream;
   }
+
+  options = options || {};
+
   if (options.connect === undefined) {
     options.connect = true;
   }
@@ -100,6 +101,6 @@ function recreate(makeStream, options) {
   }
 
   return stream;
-};
+}
 
 module.exports = recreate;
