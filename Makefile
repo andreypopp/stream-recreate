@@ -12,13 +12,13 @@ lint:
 test:
 	@$(BIN)/mocha -b -R spec ./specs.js
 
-release-patch: test
+release-patch: test lint
 	@$(call release,patch)
 
-release-minor: test
+release-minor: test lint
 	@$(call release,minor)
 
-release-major: test
+release-major: test lint
 	@$(call release,major)
 
 publish:
