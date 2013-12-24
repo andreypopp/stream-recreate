@@ -2,14 +2,13 @@
   "name": "stream-recreate",
   "version": "0.2.0",
   "description": "Recreate stream on 'error' and/or 'end'",
-  "main": "lib/index.js",
+  "main": "index.js",
   "dependencies": {
     "through": "",
     "backoff": ""
   },
   "devDependencies": {
-    "coffee-script": "~1.6.x",
-    "mocha": "",
+    "mocha": "1.x.x",
     "semver": "",
     "sphinx-npm": ""
   },

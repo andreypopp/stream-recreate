@@ -1,40 +1,13 @@
 BIN = ./node_modules/.bin
-SRC = $(wildcard src/*.coffee)
 LIB = $(SRC:src/%.coffee=lib/%.js)
 REPO = $(shell cat .git/config | grep url | xargs echo | sed -E 's/^url = //g')
 REPONAME = $(shell echo $(REPO) | sed -E 's_.+:([a-zA-Z0-9_\-]+)/([a-zA-Z0-9_\-]+)\.git_\1/\2_')
-
-build: $(LIB)
-
-lib/%.js: src/%.coffee
-	@mkdir -p $(@D)
-	@$(BIN)/coffee -bcp $< > $@
-
-clean:
-	@rm -f $(LIB)
 
 install link:
 	@npm $@
 
 test:
-	@$(BIN)/mocha -b -R spec --compilers coffee:coffee-script ./spec.coffee
-
-docs::
-	@sphinx-npm \
-		-C -E -a \
-		-Dhtml_theme_path=. \
-		-Dhtml_theme=noisy \
-		-Dmaster_doc=index \
-		-Agithub_repo='$(REPONAME)' \
-		./docs ./docs/build
-
-docs-push::
-	rm -rf ./docs/build
-	$(MAKE) docs
-	touch ./docs/build/.nojekyll
-	(cd ./docs/build;\
-		git init && git add . && git ci -m 'docs' &&\
-		git push -f $(REPO) master:gh-pages)
+	@$(BIN)/mocha -b -R spec ./specs.js
 
 release-patch: build test
 	@$(call release,patch)
