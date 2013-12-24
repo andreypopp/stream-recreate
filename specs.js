@@ -63,4 +63,21 @@ describe('stream-recreate', function() {
 
     stream.underlying.emit('error', new Error('x'));
   });
+
+  it('shutdowns stream by calling end()', function(done) {
+    var stream = recreate(function() { return new PassThrough; });
+
+    var backoffScheduleSeen = false;
+
+    stream.on('backoff-schedule', function() {
+      backoffScheduleSeen = true;
+    });
+
+    stream.on('end', function() {
+      assert.ok(!backoffScheduleSeen);
+      done();
+    });
+
+    stream.end();
+  });
 });
