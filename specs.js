@@ -13,28 +13,49 @@ describe('stream-recreate', function() {
     stream.underlying.emit('open');
   });
 
+  it('emits an "underlying-open" event on underlying stream "open"', function(done) {
+    var stream = recreate(function() { return new PassThrough; });
+
+    stream.on('underlying-open', done);
+    stream.underlying.emit('open');
+  });
+
   it('recreates stream on end of underlying stream', function(done) {
     var stream = recreate(function() { return new PassThrough; });
-    var underlying1 = stream.underlying;
+    var underlying = stream.underlying;
 
-    stream.backoff.on('ready', function() {
-      stream.underlying.on('open', function() {
-        assert.notEqual(stream.underlying, underlying1);
+    var backoffScheduleSeen = false;
+
+    stream.on('backoff-schedule', function() {
+      backoffScheduleSeen = true;
+    });
+
+    stream.on('backoff-ready', function() {
+      assert.ok(backoffScheduleSeen);
+      stream.on('underlying-open', function() {
+        assert.notEqual(stream.underlying, underlying, 'new stream should be created');
         done();
       });
       stream.underlying.emit('open');
     });
 
-    stream.underlying.end();
+    underlying.end();
   });
 
   it('recreates stream on error of underlying stream', function(done) {
     var stream = recreate(function() { return new PassThrough; });
-    var underlying1 = stream.underlying;
+    var underlying = stream.underlying;
 
-    stream.backoff.on('ready', function() {
-      stream.underlying.on('open', function() {
-        assert.notEqual(stream.underlying, underlying1);
+    var backoffScheduleSeen = false;
+
+    stream.on('backoff-schedule', function() {
+      backoffScheduleSeen = true;
+    });
+
+    stream.on('backoff-ready', function() {
+      assert.ok(backoffScheduleSeen);
+      stream.on('underlying-open', function() {
+        assert.notEqual(stream.underlying, underlying, 'new stream should be created');
         done();
       });
       stream.underlying.emit('open');
@@ -42,5 +63,4 @@ describe('stream-recreate', function() {
 
     stream.underlying.emit('error', new Error('x'));
   });
-
 });

@@ -86,8 +86,8 @@ function recreate(makeStream, options) {
   });
 
   stream.backoff.on('ready', function() {
-    stream.emit('backoff-ready');
     stream.connect();
+    stream.emit('backoff-ready');
   });
 
   stream.backoff.on('fail', function() {

@@ -4,13 +4,12 @@
   "description": "Recreate stream on 'error' and/or 'end'",
   "main": "index.js",
   "dependencies": {
-    "through": "",
-    "backoff": ""
+    "through": "~2.3.4",
+    "backoff": "~2.3.0"
   },
   "devDependencies": {
     "mocha": "1.x.x",
-    "semver": "",
-    "sphinx-npm": ""
+    "semver": "~2.2.1"
   },
   "repository": {
     "type": "git",
