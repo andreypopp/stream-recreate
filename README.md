@@ -1,10 +1,10 @@
 # Recreate stream in case of error
 
-To get started, install `stream-recreate` package via `npm`::
+To get started, install `stream-recreate` package via `npm`:
 
     % npm install stream-recreate
 
-The basic usage example is as follows::
+The basic usage example is as follows:
 
     var recreate = require('stream-recreate'),
         websocket = require('websocket-stream');
